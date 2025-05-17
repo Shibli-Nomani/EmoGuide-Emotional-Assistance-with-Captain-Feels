@@ -7,4 +7,4 @@ deepface==0.0.93
 transformers==4.51.3
 ctransformers==0.2.27
 gTTS==2.5.3
-huggingface_hub==0.26.2
+huggingface_hub
