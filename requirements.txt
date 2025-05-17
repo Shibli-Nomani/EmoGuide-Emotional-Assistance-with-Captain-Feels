@@ -8,5 +8,5 @@ transformers==4.51.3
 ctransformers==0.2.27
 py-espeak-ng==0.1.8
 phonemizer==3.3.0
-TTS
+TTS==25.1.1
 huggingface_hub==0.26.2
