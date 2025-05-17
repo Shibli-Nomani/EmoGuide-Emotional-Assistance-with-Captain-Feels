@@ -1,6 +1,4 @@
-# Streamlit Emotion Analysis App
 import streamlit as st
-import subprocess
 import cv2
 import numpy as np
 import pandas as pd
@@ -9,43 +7,27 @@ from deepface import DeepFace
 import json
 import random
 from ctransformers import AutoModelForCausalLM
-from TTS.api import TTS
+from gtts import gTTS
 import tempfile
 import os
-
-# --------------------------------------------
-# 📦 Package Installation (Run in Environment Setup)
-# --------------------------------------------
-def install_package(command, description=""):
-    try:
-        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        st.success(f"✅ {description or command} installed successfully.")
-    except subprocess.CalledProcessError as e:
-        st.error(f"❌ Failed to install {description or command}: {e.stderr.decode()}")
-
-# Install dependencies (comment out if pre-installed in environment)
-# install_package("pip install streamlit opencv-python numpy pandas plotly deepface transformers ctransformers py-espeak-ng phonemizer TTS soundfile", "Core packages")
-st.title("Coqui TTS with Streamlit")
 
 # --------------------------------------------
 # 🔧 Initialize Models
 # --------------------------------------------
 @st.cache_resource
 def load_llm():
-    return AutoModelForCausalLM.from_pretrained(
-        "TheBloke/Llama-2-7B-Chat-GGUF",
-        model_file="llama-2-7b-chat.Q4_K_M.gguf",
-        model_type="llama",
-        gpu_layers=0
-    )
-
-@st.cache_resource
-def load_tts():
-    return TTS(model_name="tts_models/en/vctk/vits", progress_bar=False)
+    try:
+        return AutoModelForCausalLM.from_pretrained(
+            "TheBloke/Llama-2-7B-Chat-GGUF",
+            model_file="llama-2-7b-chat.Q4_K_M.gguf",
+            model_type="llama",
+            gpu_layers=0
+        )
+    except Exception as e:
+        st.error(f"Failed to load LLaMA model: {e}")
+        return None
 
 llm = load_llm()
-tts = load_tts()
-speaker = "p226"
 
 # --------------------------------------------
 # 📂 Load JSON Advice Data
@@ -220,12 +202,17 @@ def respond(emotion, user_text, chat_hist, questions, q_idx):
 # --------------------------------------------
 @st.cache_data
 def generate_welcome_audio():
-    welcome_text = (
-        "Hello! I’m Captain Feels — your virtual Emo Bot and Emotion Assistant. Please be patient as we go through the process. First, you’ll hear a short audio message. Then, upload or drag and drop your image for analysis. Finally, I’ll guide you with personalized advice and a few interactive questions."
-    )
-    _, audio_path = tempfile.mkstemp(suffix=".wav")
-    tts.tts_to_file(text=welcome_text, speaker="p226", file_path=audio_path)
-    return audio_path
+    try:
+        welcome_text = (
+            "Hello! I’m Captain Feels — your virtual Emo Bot and Emotion Assistant. Please be patient as we go through the process. First, you’ll hear a short audio message. Then, upload or drag and drop your image for analysis. Finally, I’ll guide you with personalized advice and a few interactive questions."
+        )
+        tts = gTTS(text=welcome_text, lang='en', tld='co.uk')  # British English for neutral/male-leaning voice
+        _, audio_path = tempfile.mkstemp(suffix=".mp3")
+        tts.save(audio_path)
+        return audio_path
+    except Exception as e:
+        st.warning(f"Failed to generate welcome audio: {e}. Continuing without audio.")
+        return None
 
 # --------------------------------------------
 # 🎨 Streamlit App UI
@@ -237,7 +224,10 @@ def main():
 
     # Play welcome audio
     welcome_audio_path = generate_welcome_audio()
-    st.audio(welcome_audio_path, format="audio/wav", start_time=0)
+    if welcome_audio_path:
+        st.audio(welcome_audio_path, format="audio/mp3", start_time=0)
+    else:
+        st.info("Audio generation skipped due to TTS initialization failure.")
 
     # Initialize session state
     if 'chat_history' not in st.session_state:
