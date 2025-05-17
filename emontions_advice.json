@@ -1,0 +1,471 @@
+[
+  {
+    "emotion": "angry",
+    "question": "What triggered your anger recently?",
+    "user_response": "Someone took credit for my idea at work.",
+    "advice": [
+      "It's okay to feel angry when your contributions aren't acknowledged. Take a moment to breathe deeply and process your emotions. It might be helpful to address the issue directly with the person involved in a calm and constructive manner.",
+      "When feeling angry, it’s important to communicate your feelings clearly and respectfully. Consider talking to your manager or the person involved to ensure your contributions are recognized going forward.",
+      "Anger can cloud judgment, so it's beneficial to reflect on the situation and gain some distance before taking action. This can help you address the situation in a way that resolves the issue without further escalating it.",
+      "Try journaling your feelings to gain clarity on why you're upset. This may help you process your emotions and figure out the most effective way to address the situation.",
+      "Remember that being acknowledged for your efforts is important. It may help to have a constructive conversation with your colleague or manager to express your concerns."
+    ]
+  },
+  {
+    "emotion": "angry",
+    "question": "How do you usually express your anger?",
+    "user_response": "I tend to stay silent, but sometimes I end up snapping.",
+    "advice": [
+      "It’s okay to feel overwhelmed, but expressing anger in a healthy way can help preserve your relationships. Try taking a few deep breaths or stepping away from the situation to gather your thoughts before responding.",
+      "It's important to express your emotions in a way that doesn't hurt others. Consider finding outlets for your anger, such as journaling, exercising, or talking to a trusted friend, before engaging with others.",
+      "Taking a pause when you feel angry can give you time to calm down. Try using techniques like deep breathing or mindfulness to help manage your emotions before reacting impulsively.",
+      "Expressing yourself calmly can prevent misunderstandings. Consider using I statements to communicate how you feel, such as 'I feel frustrated when...'. This helps to express your anger without attacking others.",
+      "It's helpful to find constructive outlets like physical activity or creative hobbies to manage anger. Engaging in activities that focus your energy can help you feel better and reduce the urge to snap."
+    ]
+  },
+  {
+    "emotion": "angry",
+    "question": "Has this situation been ongoing?",
+    "user_response": "Yes, this has been happening for a while now.",
+    "advice": [
+      "It’s understandable that ongoing situations can increase feelings of frustration. It may be helpful to address the issue directly with the person involved, or to speak to someone who can offer support, like a supervisor or HR.",
+      "When anger persists over time, it can build up and affect your well-being. It might be helpful to have an open conversation with the involved party or find strategies to manage ongoing stress, like setting boundaries or seeking professional advice.",
+      "If this situation has been ongoing, it may help to focus on long-term solutions. Try finding ways to express your frustrations in a constructive manner or even suggest ways to improve the situation in the future.",
+      "Long-standing issues can feel overwhelming, but it's important to address them before they negatively impact your mental health. Consider seeking advice from a mentor or trusted colleague on how to move forward."
+    ]
+  },
+  {
+    "emotion": "angry",
+    "question": "Who or what made you feel this way?",
+    "user_response": "My colleague spoke over me during the meeting.",
+    "advice": [
+      "It's natural to feel upset when you're not given the respect you deserve. You might consider discussing the situation with your colleague, or finding a way to express your thoughts in meetings so you feel heard.",
+      "It can be frustrating when others don’t give you space to speak. Reflect on ways you can assertively communicate your needs, whether it's by speaking up more confidently in meetings or discussing the issue privately with the person involved.",
+      "Sometimes, the root of the anger is a lack of respect. It's helpful to address the behavior directly with your colleague in a professional manner to avoid future occurrences.",
+      "Consider practicing assertive communication techniques, such as maintaining eye contact and speaking confidently, to ensure that your ideas are heard in meetings. It might also help to set up a private conversation with the person who spoke over you."
+    ]
+  },
+  {
+    "emotion": "angry",
+    "question": "What outcome would make you feel better?",
+    "user_response": "I just want to feel respected and valued at work.",
+    "advice": [
+      "It’s important to feel respected in your workplace. Consider having an open conversation with your manager or colleagues to express how you feel and ask for the recognition you deserve.",
+      "Respect is fundamental to a healthy working environment. It may help to identify specific actions that would make you feel valued and discuss them directly with the relevant people.",
+      "Sometimes, feeling respected is about setting boundaries and asserting yourself. Have a conversation with the people around you to ensure that your contributions are acknowledged.",
+      "To improve your sense of value, you may want to clarify your expectations with your colleagues and manager. Setting clear goals and requesting regular feedback can help you feel more recognized and appreciated."
+    ]
+  },
+  {
+    "emotion": "angry",
+    "question": "How do you manage your anger?",
+    "user_response": "I usually take a walk to cool off.",
+    "advice": [
+      "Taking a walk is a great way to manage anger. Physical activity can help release built-up tension and clear your mind. Continue using this technique or explore other calming activities like deep breathing or journaling.",
+      "Finding ways to physically release tension, like walking or exercising, is a healthy way to cope with anger. Consider adding relaxation techniques, such as mindfulness or meditation, to your routine for added support.",
+      "Physical activity is a great way to manage anger. Consider also incorporating other methods, like listening to calming music or practicing mindfulness exercises, to help you find balance when emotions run high.",
+      "In addition to walks, you may find other activities like stretching or yoga helpful for releasing built-up anger. Breathing exercises and progressive muscle relaxation are also great options to calm your mind."
+    ]
+  },
+  {
+    "emotion": "angry",
+    "question": "What do you need right now to feel calmer?",
+    "user_response": "I need some space to think things through.",
+    "advice": [
+      "It’s perfectly okay to need space when you are feeling angry. Taking time for yourself to process your emotions can help you come to a more balanced perspective. Use this time to reflect on the situation calmly.",
+      "Giving yourself the space to calm down is important for managing anger. Take a break, step away from the situation, and return when you're ready to engage more constructively.",
+      "Taking space can give you a fresh perspective. Use this time to reflect on your feelings and consider possible ways to move forward, whether through direct communication or self-reflection.",
+      "Sometimes, stepping away from a situation allows you to return with a clearer mindset. Use this time to relax, practice mindfulness, or engage in activities that help restore your emotional balance."
+    ]
+  },
+  {
+    "emotion": "disgust",
+    "question": "What specific event caused this feeling of disgust?",
+    "user_response": "I saw someone littering on the street.",
+    "advice": [
+      "It's natural to feel disgusted when you witness behavior that goes against your values. You may want to channel this feeling into positive action, like volunteering for clean-up efforts or discussing the issue with others to raise awareness.",
+      "Disgust is often triggered by actions that violate social norms. Consider how you can make a difference, whether by taking personal action, raising awareness, or setting a good example for others.",
+      "You may feel disgusted by certain behaviors, but focusing on positive actions can help you feel empowered. Engaging in community clean-up or environmental advocacy could turn your feelings into a productive outcome."
+    ]
+  },
+  {
+    "emotion": "disgust",
+    "question": "Is it a person, behavior, or situation that disturbs you?",
+    "user_response": "It's a behavior I witnessed that felt disrespectful.",
+    "advice": [
+      "When behavior feels disrespectful, it can trigger feelings of disgust. Reflect on how you might address the behavior, whether by setting boundaries or having a conversation with the person involved.",
+      "It's okay to feel disturbed by inappropriate behavior. If you feel comfortable, express your concerns to the person involved in a respectful manner, or consider seeking support from someone you trust.",
+      "Addressing disrespectful behavior can help you regain your peace of mind. Consider talking to the person involved to explain how their actions affected you, or discuss the situation with a supervisor if necessary."
+    ]
+  },
+  {
+    "emotion": "disgust",
+    "question": "How do you usually react when you feel this way?",
+    "user_response": "I tend to avoid the person or situation altogether.",
+    "advice": [
+      "Avoiding situations or people that trigger disgust can be helpful in the short term. However, addressing the issue directly may help you find a resolution and prevent future discomfort. Consider discussing your feelings in a calm manner.",
+      "It’s natural to avoid discomfort, but confronting the situation may offer a sense of resolution. If direct confrontation isn't possible, finding healthy outlets for your emotions, like talking to someone you trust, can help.",
+      "Avoidance can sometimes provide temporary relief, but addressing the issue head-on may lead to long-term peace of mind. If you're uncomfortable with direct confrontation, consider finding other ways to communicate your concerns."
+    ]
+  },
+	
+
+  {
+    "emotion": "fear",
+    "question": "What are you afraid of right now?",
+    "user_response": "I'm afraid of losing my job due to recent changes in the company.",
+    "advice": [
+      "It's understandable to feel fearful when job security is uncertain. Take steps to strengthen your position, such as upskilling, networking, and staying adaptable. Focus on what you can control rather than the uncertainty.",
+      "Fear of job loss is common, especially in challenging times. Consider discussing your concerns with your supervisor or HR, or finding ways to increase your value within the company.",
+      "While fear of the unknown is natural, remember that you can always seek professional advice or mentorship to guide your next steps. Take proactive measures to alleviate your anxiety and focus on what you can do."
+    ]
+  },
+  {
+    "emotion": "fear",
+    "question": "Is the fear based on something real or imagined?",
+    "user_response": "I'm not sure; it feels real, but I don't have any concrete evidence.",
+    "advice": [
+      "It is common to fear the unknown, especially when you do not have all the facts. Try to assess the situation logically by gathering information and focusing on what’s within your control.",
+      "Sometimes our fears are fueled by imagination, but it is important to check if the fear has a real basis. Take time to analyze the situation, and consider seeking advice from a trusted person to gain clarity.",
+      "Reflecting on whether the fear is real or imagined can help you approach it rationally. Consider writing down your thoughts to separate facts from feelings and gain a clearer perspective."
+    ]
+  },
+  {
+    "emotion": "fear",
+    "question": "How do you usually respond to fear?",
+    "user_response": "I tend to freeze or avoid the situation altogether.",
+    "advice": [
+      "Freezing or avoiding fear can be a natural instinct, but taking small steps to face your fears gradually can help you build confidence. Start by breaking the situation into manageable pieces.",
+      "Avoiding fear might provide temporary relief but can prolong the anxiety. Practice grounding techniques or positive self-talk to gradually confront what scares you.",
+      "Facing your fear is empowering. Start small and acknowledge your feelings, but take steps forward at your own pace. Building resilience through small wins can help you manage bigger fears."
+    ]
+  },
+  {
+    "emotion": "fear",
+    "question": "Has this fear affected your decisions recently?",
+    "user_response": "Yes, I have been hesitant to take on new projects because of the uncertainty.",
+    "advice": [
+      "Fear of failure can impact decision-making, but do not let it hold you back. Consider taking manageable risks and focusing on what you can control. Start by setting small, achievable goals to build confidence.",
+      "It’s understandable to hesitate when fear is present, but remember that growth often happens outside of our comfort zone. Reframe fear as an opportunity to learn and build resilience.",
+      "To break free from the hold of fear, challenge your negative thoughts. Ask yourself what you’re afraid of and if the fear is truly a reflection of reality. Starting with low-risk projects can help you ease into larger challenges."
+    ]
+  },
+  {
+    "emotion": "fear",
+    "question": "Have you shared this fear with anyone?",
+    "user_response": "No, I haven’t talked to anyone about it yet.",
+    "advice": [
+      "Talking about your fears can be a great way to release some of the pressure. Consider confiding in a trusted friend, family member, or colleague who might offer support and perspective.",
+      "It’s okay to keep fears to yourself for a while, but sharing them can help you gain clarity and reassurance. Talking it through with someone else can help you see the situation from a new angle.",
+      "Opening up about your fear can reduce its intensity. Find someone who listens without judgment, and you may feel a sense of relief after discussing it openly."
+    ]
+  },
+  {
+    "emotion": "fear",
+    "question": "When did this fear first appear?",
+    "user_response": "It started when the company began making major changes and restructuring.",
+    "advice": [
+      "It’s common for fear to arise during periods of uncertainty or change. Focus on the present and what you can do now, rather than dwelling on past experiences that caused the fear.",
+      "Understanding the origin of your fear can provide insight into how to manage it. Consider reflecting on how you handled similar situations in the past and apply those lessons now.",
+      "Change can be unsettling, but remember that it’s a part of growth. Try to reframe the situation as an opportunity for new experiences, and explore ways to navigate change with a positive mindset."
+    ]
+  },
+  {
+    "emotion": "fear",
+    "question": "What could reduce this fear for you?",
+    "user_response": "Having more stability and clarity about my future would help.",
+    "advice": [
+      "Stability and clarity are important, but the fear of uncertainty can’t always be avoided. Focus on building internal resilience by developing coping mechanisms like mindfulness or self-reflection.",
+      "While you can’t always control external factors, you can control how you respond to uncertainty. By creating a plan or seeking out information, you can reduce the fear of the unknown.",
+      "Finding ways to create your own sense of stability, even in uncertain times, can be empowering. Engage in self-care practices, set clear goals, and seek support to build a sense of security within yourself."
+    ]
+  },
+
+  {
+    "emotion": "happy",
+    "question": "What’s making you feel happy today?",
+    "user_response": "I got great feedback on a project I’ve been working on!",
+    "advice": [
+      "It’s wonderful to receive positive feedback! Celebrate your hard work and keep up the great effort. This recognition is a sign of your dedication and skill.",
+      "Enjoy this moment of accomplishment! Positive feedback can be a great motivator. Use this energy to keep pushing forward and strive for even greater success.",
+      "Take time to appreciate your achievement. Positive feedback reflects your commitment and talent. Use this as fuel for your continued growth and progress."
+    ]
+  },
+  {
+    "emotion": "happy",
+    "question": "Who did you share this moment with?",
+    "user_response": "I shared the news with my team and they were all so supportive!",
+    "advice": [
+      "It’s amazing to have a supportive team! Cherish these relationships, as they are key to maintaining happiness and motivation in your journey.",
+      "Sharing your happiness with others strengthens bonds and builds a positive environment. Continue fostering these connections to keep the momentum going.",
+      "Supportive colleagues make achievements even more meaningful. Keep nurturing these relationships—they’ll continue to be a great source of encouragement."
+    ]
+  },
+  {
+    "emotion": "happy",
+    "question": "What’s been going really well for you?",
+    "user_response": "I’ve been managing my time better and feeling more productive.",
+    "advice": [
+      "It’s fantastic that you’re feeling more productive! Keep prioritizing tasks and sticking to routines that help maintain this positive momentum.",
+      "Time management is a key skill. Continue refining your strategies and celebrate small wins along the way. This productivity will bring you long-term success.",
+      "Feeling productive is a great sign of your progress. Continue with the habits that are making you feel efficient and in control."
+    ]
+  },
+  {
+    "emotion": "happy",
+    "question": "Is this a long-lasting feeling or something new?",
+    "user_response": "It’s something new and fresh. I feel like I’m on the right track.",
+    "advice": [
+      "It’s great that you’re feeling positive and on track! Enjoy this new wave of happiness and use it as motivation to continue pursuing your goals.",
+      "A new burst of happiness can often signal exciting new beginnings. Embrace this energy, stay focused, and trust that you’re heading in the right direction.",
+      "New happiness is a sign of personal growth. Keep riding this wave by continuing to invest in the things that bring you joy and fulfillment."
+    ]
+  },
+  {
+    "emotion": "happy",
+    "question": "What are you most grateful for right now?",
+    "user_response": "I’m grateful for the support of my friends and family during a busy time.",
+    "advice": [
+      "It’s wonderful to have such strong support from your loved ones. Gratitude fosters a positive mindset, so continue nurturing these relationships and expressing your thanks.",
+      "Gratitude is a powerful way to enhance happiness. Take time to appreciate those around you and the support they offer, which is essential for maintaining balance and joy.",
+      "Acknowledging your gratitude for others strengthens your connections and keeps your spirit high. Keep showing appreciation, and it will continue to bring positivity into your life."
+    ]
+  },
+  {
+    "emotion": "happy",
+    "question": "What’s a recent highlight you’d like to share?",
+    "user_response": "I completed a challenging task I’ve been working on for weeks!",
+    "advice": [
+      "What an accomplishment! Completing a challenging task is a huge victory. Take pride in your perseverance and use this as motivation for the future.",
+      "Completing tough tasks is a testament to your hard work and resilience. Celebrate this highlight and keep challenging yourself to grow even more.",
+      "You should feel proud of finishing something difficult! Reflect on the effort it took to reach this point, and use it as a reminder of your strength and abilities."
+    ]
+  },
+  {
+    "emotion": "happy",
+    "question": "How can you hold onto this happiness?",
+    "user_response": "I think by staying focused on my goals and continuing to appreciate the little things.",
+    "advice": [
+      "Staying focused on your goals while appreciating the small joys is a great way to maintain happiness. Keep practicing mindfulness and gratitude every day to hold onto this positive feeling.",
+      "Happiness thrives when you balance ambition with appreciation. Keep nurturing this mindset, and you’ll continue to experience joy while working toward your goals.",
+      "Maintaining happiness is a blend of working toward your dreams and enjoying the present. Keep embracing both and stay grounded in the things that make you feel grateful."
+    ]
+  },
+
+  {
+    "emotion": "sad",
+    "question": "What’s been broken your heart?",
+    "user_response": "I lost someone close to me recently.",
+    "advice": [
+      "Losing someone close is one of the hardest things to go through. Take time to grieve and lean on supportive friends or family during this challenging time.",
+      "Heartbreak is painful, and it’s okay to feel the weight of that loss. Surround yourself with people who care about you, and allow yourself to process the emotions at your own pace.",
+      "When grief strikes, it’s important to remember that healing takes time. Be gentle with yourself and reach out for support when you feel ready."
+    ]
+  },
+  {
+    "emotion": "sad",
+    "question": "When did this sadness begin?",
+    "user_response": "It started after a big argument with a close friend.",
+    "advice": [
+      "Arguments with loved ones can really hurt, but it’s important to communicate and find a way to resolve the tension. Consider reaching out to your friend when you’re ready to talk things through.",
+      "Feelings of sadness after a disagreement are common. Take some time to reflect on the situation and consider ways to heal the relationship. It might help to express your feelings calmly and openly.",
+      "Sadness after an argument is natural, but it doesn’t have to last. Reach out to your friend when you feel ready, and share your feelings to work toward a solution together."
+    ]
+  },
+  {
+    "emotion": "sad",
+    "question": "Is it connected to someone or something specific?",
+    "user_response": "Yes, it’s related to my personal life and some challenges I’ve been facing.",
+    "advice": [
+      "Personal challenges can weigh heavily on the heart. It’s important to acknowledge how you’re feeling and seek the support of those who understand your situation.",
+      "Life’s struggles can often make us feel down. Reach out to someone you trust, whether it’s a friend, family member, or therapist, for comfort and guidance.",
+      "When life feels overwhelming, it’s crucial to take small steps toward healing. You don’t have to face everything alone. Lean on those who care for you when you need to."
+    ]
+  },
+  {
+    "emotion": "sad",
+    "question": "What are you missing the most?",
+    "user_response": "I miss the good times I used to have with my family.",
+    "advice": [
+      "Missing loved ones is a deep sadness. Reflecting on the good memories can be comforting, but also look for ways to reconnect with them in the present when possible.",
+      "Nostalgia for happier times can bring sadness, but it’s important to cherish the moments you’ve shared and look forward to making new ones with your family.",
+      "It’s natural to miss the warmth and comfort of family moments. Take time to reflect, but also find ways to reach out to them or create new memories together."
+    ]
+  },
+  {
+    "emotion": "sad",
+    "question": "What usually helps when you're feeling like this?",
+    "user_response": "I find comfort in talking to a close friend or listening to music.",
+    "advice": [
+      "Talking to someone you trust and finding solace in music are great ways to process sadness. Continue to lean on these coping mechanisms and explore others that might bring comfort as well.",
+      "It’s helpful to find what brings you peace during tough times. Talking things through with someone close to you and immersing yourself in soothing music can help you find balance and calm.",
+      "Music and conversation with a trusted friend are powerful tools for healing. Keep using these outlets, and consider adding other relaxing activities, such as journaling or spending time in nature."
+    ]
+  },
+  {
+    "emotion": "sad",
+    "question": "Have you been able to talk to anyone about it?",
+    "user_response": "I haven’t really talked to anyone yet, I’m not sure how to start.",
+    "advice": [
+      "It can be hard to open up, but talking about your feelings is a crucial step in healing. Start small by reaching out to someone you trust, and remember it’s okay to take your time.",
+      "Opening up can feel daunting, but it’s a key part of moving through sadness. Start with someone you’re comfortable with, and express just a little at first if that feels easier.",
+      "It’s okay to feel hesitant about sharing your feelings. Take your time, but know that reaching out to someone can lighten the emotional burden and help you feel supported."
+    ]
+  },
+  {
+    "emotion": "sad",
+    "question": "What could bring even a little comfort right now?",
+    "user_response": "A simple hug or kind words would really help me feel better.",
+    "advice": [
+      "Physical comfort like a hug and words of kindness can provide temporary relief. Don’t hesitate to reach out to someone you trust for support, or find solace in comforting activities.",
+      "Sometimes, even a small gesture like a hug can make a world of difference. Allow yourself to receive comfort from others and engage in activities that help ease your sadness.",
+      "A hug and kind words can be a powerful form of comfort. Reach out to someone close to you, and remember that even small acts of kindness can provide healing during tough times."
+    ]
+  },
+  {
+    "emotion": "surprise",
+    "question": "What surprised you recently?",
+    "user_response": "I received an unexpected promotion at work.",
+    "advice": [
+      "Unexpected promotions are exciting! Take some time to reflect on your achievements and what this new opportunity means for your growth.",
+      "Surprises like promotions can be a mix of excitement and nervousness. Embrace the change and focus on how you can contribute in your new role.",
+      "Receiving a promotion can be both thrilling and overwhelming. Allow yourself time to adjust, and remember that this is an opportunity for personal and professional growth."
+    ]
+  },
+  {
+    "emotion": "surprise",
+    "question": "Was it a good or bad surprise?",
+    "user_response": "It was a good surprise, something I didn't expect at all.",
+    "advice": [
+      "Good surprises often bring joy and excitement. Allow yourself to fully enjoy this moment and appreciate the unexpected blessings that come your way.",
+      "It’s wonderful when good surprises come your way. Take a moment to savor the positive emotions, and let them fuel your confidence and happiness.",
+      "A good surprise can bring much-needed joy into your life. Celebrate this moment and let it remind you of the good things that are yet to come."
+    ]
+  },
+  {
+    "emotion": "surprise",
+    "question": "How did you feel when it happened?",
+    "user_response": "I felt shocked and thrilled at the same time.",
+    "advice": [
+      "Feeling a mix of shock and thrill is completely natural when something unexpected happens. Allow yourself to process these emotions and embrace the excitement that comes with change.",
+      "It’s normal to feel both shocked and excited in surprising situations. Let yourself experience those emotions, and try to focus on the positive aspects of the surprise.",
+      "Shock and thrill can be overwhelming, but they also open up opportunities for growth and new experiences. Take a deep breath and enjoy the excitement."
+    ]
+  },
+  {
+    "emotion": "surprise",
+    "question": "Was the surprise from someone close to you?",
+    "user_response": "Yes, it was from a close friend who arranged a surprise party for me.",
+    "advice": [
+      "Surprises from close friends can be especially heartwarming. Appreciate the thought and effort they put into making you feel special, and consider showing your gratitude in a meaningful way.",
+      "When a close friend surprises you, it’s a reminder of the strong bond you share. Take the time to express your thanks, and enjoy the love and support they’ve shown you.",
+      "A surprise from someone close can strengthen your connection with them. Be sure to acknowledge their gesture and let them know how much it meant to you."
+    ]
+  },
+  {
+    "emotion": "surprise",
+    "question": "Would you have preferred it not to happen?",
+    "user_response": "No, I’m happy it happened, even though it was unexpected.",
+    "advice": [
+      "It’s great to embrace positive surprises, even when they catch you off guard. Let this experience remind you that unexpected moments can lead to positive changes.",
+      "Sometimes surprises can take us by surprise, but they can lead to great outcomes. Enjoy the unexpected blessings and take them as opportunities for growth.",
+      "Even when unexpected, happy surprises can bring great joy. Celebrate this moment and look forward to more happy surprises in the future."
+    ]
+  },
+  {
+    "emotion": "surprise",
+    "question": "How are you processing the unexpected?",
+    "user_response": "I’m taking some time to adjust and reflect on how I feel about it.",
+    "advice": [
+      "Taking time to reflect on a surprise is important. Allow yourself to process the unexpected and think about how it fits into your larger goals or emotions.",
+      "It’s wise to take time for reflection when something unexpected happens. By understanding how it makes you feel, you can better navigate the change and adapt.",
+      "Processing surprises at your own pace is key. Take the time you need to reflect, and be open to the new opportunities or emotions that may arise."
+    ]
+  },
+  {
+    "emotion": "surprise",
+    "question": "Do you think it will lead to something else?",
+    "user_response": "Yes, I think this could open up new opportunities for me at work.",
+    "advice": [
+      "It’s exciting when a surprise leads to new opportunities. Stay open-minded and proactive as you explore how this change can benefit you in the future.",
+      "When a surprise leads to new possibilities, it’s a great chance for growth. Take full advantage of the opportunities that come your way and make the most of them.",
+      "If this surprise opens up new doors for you, embrace them! Stay positive and take proactive steps to make the most of the opportunities ahead."
+    ]
+  },
+  {
+    "emotion": "neutral",
+    "question": "How are you feeling overall today?",
+    "user_response": "I’m feeling okay, not great but not bad either.",
+    "advice": [
+      "It’s okay to feel neutral sometimes. Use this as an opportunity to reflect on what makes you feel balanced and take steps towards improving your mood if needed.",
+      "Sometimes feeling neutral means you’re in a steady state. Take this time to relax, recharge, and focus on small joys or activities that could brighten your day.",
+      "Being in a neutral state allows you to take things one step at a time. If you're looking to shift this mood, try focusing on something positive or lighthearted."
+    ]
+  },
+  {
+    "emotion": "neutral",
+    "question": "Is there anything you'd like to change?",
+    "user_response": "I think I’d like to have more energy today.",
+    "advice": [
+      "It’s great to identify what you’d like to change. Small changes, like getting fresh air or having a light snack, could help boost your energy throughout the day.",
+      "If you’re looking to change your energy levels, even small actions like stretching or drinking water can make a difference. Listen to your body and try things that energize you.",
+      "Increasing energy levels can start with little steps. Take a break, walk around, or engage in something that usually lifts your spirits."
+    ]
+  },
+  {
+    "emotion": "neutral",
+    "question": "Have you been in this mood for long?",
+    "user_response": "I’ve been feeling this way for the past few days.",
+    "advice": [
+      "If you’ve been feeling neutral for a while, it may help to reflect on what has been contributing to this mood. Focus on activities that can slowly bring joy or excitement back into your routine.",
+      "Prolonged neutral moods can sometimes mean it’s time for a change of pace. Consider doing something outside your usual routine to break the monotony and refresh your perspective.",
+      "Being in a neutral mood for a few days is completely natural. If you’re open to it, try small actions that can bring a spark of positivity or excitement back into your day."
+    ]
+  },
+  {
+    "emotion": "neutral",
+    "question": "What’s one thing on your mind right now?",
+    "user_response": "I’m just thinking about what I need to do later today.",
+    "advice": [
+      "When you’re focused on tasks ahead, it can be helpful to make a plan or jot down priorities. Breaking tasks into smaller steps can reduce overwhelm and bring clarity.",
+      "It’s okay to focus on the next steps. Consider setting small, achievable goals for the day that can help you feel accomplished by the end of it.",
+      "If you're thinking about what’s next, organizing your thoughts and planning out your day can help turn any neutral feelings into a productive and satisfying time."
+    ]
+  },
+  {
+    "emotion": "neutral",
+    "question": "What kind of day are you having?",
+    "user_response": "It’s been a quiet day, not much happening.",
+    "advice": [
+      "A quiet day can be a perfect opportunity for self-care or reflection. Enjoy the calm and use the time to engage in something that brings you peace or clarity.",
+      "Quiet days often give us the space to recharge. Try to make the most of it by engaging in something you enjoy, like reading, taking a walk, or simply relaxing.",
+      "Sometimes having a quiet day is a chance to reset. Use the peace to focus on your well-being and prepare for anything exciting or new that might come your way."
+    ]
+  },
+  {
+    "emotion": "neutral",
+    "question": "Is there something you’re waiting on?",
+    "user_response": "Yes, I’m waiting for some feedback on a project.",
+    "advice": [
+      "Waiting for feedback can create a mix of anticipation and patience. Try to use this time to reflect on your work or prepare for any changes the feedback might bring.",
+      "While waiting for feedback, take the time to relax and not stress too much. There’s only so much you can control, and the rest will come when it’s ready.",
+      "Anticipation can be a good motivator. Focus on what you can do in the meantime, and remember that feedback is an opportunity for growth and improvement."
+    ]
+  },
+  {
+    "emotion": "neutral",
+    "question": "Would you like to talk about something specific?",
+    "user_response": "Not right now, just wanted to check in.",
+    "advice": [
+      "It’s okay not to have anything specific to talk about. Sometimes checking in and taking a moment for yourself is all you need.",
+      "Taking a break from specific topics can be refreshing. Feel free to revisit anything when you’re ready, and remember that it's okay to have quiet moments.",
+      "If you don’t have a particular topic in mind, simply taking a moment to reflect or relax can be beneficial. Sometimes being present is enough."
+    ]
+  }
+]
+
+
+
+
+
+
