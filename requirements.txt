@@ -1,0 +1,12 @@
+streamlit
+opencv-python
+numpy
+pandas
+plotly
+deepface
+transformers
+ctransformers
+py-espeak-ng
+phonemizer
+TTS
+soundfile
