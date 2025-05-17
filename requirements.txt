@@ -4,8 +4,8 @@ numpy
 pandas
 plotly
 deepface
+tensorflow
 transformers
 ctransformers
 gTTS
 huggingface_hub
-tensorflow==2.16.1
