@@ -1,13 +1,10 @@
 streamlit==1.45.1
 opencv-python==4.11.0.86
-numpy==1.26.4
+numpy==2.2.5
 pandas==2.2.3
 plotly==6.1.0
 deepface==0.0.93
 transformers==4.51.3
 ctransformers==0.2.27
-py-espeak-ng==0.1.8
-phonemizer==3.3.0
-TTS==0.22.0
+gTTS==2.5.3
 huggingface_hub==0.26.2
-mecab-python3==1.0.9
