@@ -25,6 +25,7 @@ def install_package(command, description=""):
 
 # Install dependencies (comment out if pre-installed in environment)
 # install_package("pip install streamlit opencv-python numpy pandas plotly deepface transformers ctransformers py-espeak-ng phonemizer TTS soundfile", "Core packages")
+st.title("Coqui TTS with Streamlit")
 
 # --------------------------------------------
 # 🔧 Initialize Models
