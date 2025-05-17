@@ -9,3 +9,4 @@ transformers
 ctransformers
 gTTS
 huggingface_hub
+keras
