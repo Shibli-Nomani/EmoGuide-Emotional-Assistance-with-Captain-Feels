@@ -5,8 +5,9 @@ pandas
 plotly
 deepface
 tensorflow
+keras
 transformers
 ctransformers
 gTTS
 huggingface_hub
-keras
+
