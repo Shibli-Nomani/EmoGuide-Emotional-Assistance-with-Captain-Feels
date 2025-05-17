@@ -2,3 +2,4 @@ mecab
 libmecab-dev
 mecab-ipadic-utf8
 espeak-ng
+libgl1
