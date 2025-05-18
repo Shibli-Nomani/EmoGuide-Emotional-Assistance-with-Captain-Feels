@@ -258,7 +258,7 @@ def main():
                         # Display results
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.image(result_img, caption="Emotion Detection Output", use_column_width=True)
+                            st.image(result_img, caption="Emotion Detection Output", use_container_width=True)
                         with col2:
                             fig_tree = create_hierarchical_tree(df)
                             if fig_tree:
