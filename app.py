@@ -12,6 +12,11 @@ import tempfile
 import os
 
 # --------------------------------------------
+# 🔧 Set Page Config (Must be the first Streamlit command)
+# --------------------------------------------
+st.set_page_config(page_title="EmoGuide: Emotion-Aware Conversations", page_icon="😎")
+
+# --------------------------------------------
 # 🔧 Initialize Models
 # --------------------------------------------
 @st.cache_resource
@@ -218,7 +223,6 @@ def generate_welcome_audio():
 # 🎨 Streamlit App UI
 # --------------------------------------------
 def main():
-    st.set_page_config(page_title="EmoGuide: Emotion-Aware Conversations", page_icon="😎")
     st.title("😎 EmoGuide: Emotion-Aware Conversations with Captain Feels")
     st.markdown("## 🚩 Play the Audio and Start the Journey with Patience")
 
