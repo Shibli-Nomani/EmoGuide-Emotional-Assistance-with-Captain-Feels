@@ -303,7 +303,7 @@ def main():
                                 st.session_state.stage = 'done'
                             else:
                                 advice = get_advice_from_json(st.session_state.emotion, user_input)
-                                st.session_state.chat_history[-1][1] = f"💡 Captain Feels 🤖: {advice}"
+                                st.session_state.chat_history[-1][1] = f"💡 Advice: {advice}"
                                 st.session_state.question_index += 1
                                 if st.session_state.question_index < len(st.session_state.questions):
                                     st.session_state.chat_history.append([
