@@ -12,29 +12,6 @@ import tempfile
 import os
 
 # --------------------------------------------
-# 🔧 Initialize Session State
-# --------------------------------------------
-def ensure_session_state():
-    """Ensure all required session state variables are initialized."""
-    default_state = {
-        'stage': 'audio',
-        'chat_history': [],
-        'emotion': 'neutral',
-        'questions': [],
-        'question_index': 0,
-        'analysis_done': False,
-        'user_input': ''
-    }
-    for key, value in default_state.items():
-        if key not in st.session_state:
-            st.session_state[key] = value
-    # Debug: Log session state to verify initialization
-    st.write("Debug: Session State Initialized:", st.session_state)
-
-# Call initialization at the very start
-ensure_session_state()
-
-# --------------------------------------------
 # 🔧 Set Page Config
 # --------------------------------------------
 st.set_page_config(page_title="EmoGuide: Emotion-Aware Conversations", page_icon="😎")
@@ -234,9 +211,6 @@ def generate_welcome_audio():
 # 🎨 Streamlit App UI
 # --------------------------------------------
 def main():
-    # Re-ensure session state at the start of main
-    ensure_session_state()
-
     st.title("😎 EmoGuide: Emotion-Aware Conversations with Captain Feels")
     st.markdown("### 🚩 Step 1: Listen to the Welcome Audio")
 
@@ -247,13 +221,22 @@ def main():
     else:
         st.info("Audio generation skipped due to TTS failure.")
 
+    # Initialize session state
+    if 'stage' not in st.session_state:
+        st.session_state.stage = 'audio'
+        st.session_state.chat_history = []
+        st.session_state.emotion = "neutral"
+        st.session_state.questions = []
+        st.session_state.question_index = 0
+        st.session_state.analysis_done = False
+        st.session_state.user_input = ""
+
     # Image upload (only after audio)
-    if st.session_state.get('stage') == 'audio':
+    if st.session_state.stage == 'audio':
         if st.button("Proceed to Image Upload"):
             st.session_state.stage = 'image'
-            st.rerun()
 
-    if st.session_state.get('stage') == 'image':
+    if st.session_state.stage == 'image':
         st.markdown("### 📸 Step 2: Upload Image for Emotion Analysis")
         image_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
         
@@ -288,7 +271,7 @@ def main():
                         st.error("Analysis failed. Please try another image.")
 
     # Chatbot interaction
-    if st.session_state.get('stage') == 'chat' and st.session_state.get('analysis_done'):
+    if st.session_state.stage == 'chat' and st.session_state.analysis_done:
         st.markdown("### 💬 Step 3: Chat with Captain Feels")
         st.write(f"Detected Emotion: **{st.session_state.emotion.upper()}**")
 
@@ -304,20 +287,13 @@ def main():
 
             # Show current question or final message
             if st.session_state.question_index < len(st.session_state.questions):
-                # Ensure the current question is in chat_history
-                if not st.session_state.chat_history or st.session_state.chat_history[-1][0] != f"Captain Feels 🤖: Q{st.session_state.question_index + 1}: {st.session_state.questions[st.session_state.question_index]}":
-                    st.session_state.chat_history.append([
-                        f"Captain Feels 🤖: Q{st.session_state.question_index + 1}: {st.session_state.questions[st.session_state.question_index]}",
-                        ""
-                    ])
-                    st.rerun()
-
+                st.markdown(f"**Captain Feels 🤖: Q{st.session_state.question_index + 1}:** {st.session_state.questions[st.session_state.question_index]}")
                 user_input = st.text_input("Your response (or type 'exit' to end)...", key=f"user_input_{st.session_state.question_index}")
                 
                 if st.button("Send Response"):
                     if user_input:
                         with st.spinner("Generating advice..."):
-                            st.session_state.chat_history[-1][1] = f"You: {user_input}"
+                            st.session_state.chat_history.append([f"You: {user_input}", ""])
                             if user_input.lower() in ["exit", "goodbye", "stop"]:
                                 st.session_state.chat_history.append([
                                     "",
@@ -327,12 +303,14 @@ def main():
                                 st.session_state.stage = 'done'
                             else:
                                 advice = get_advice_from_json(st.session_state.emotion, user_input)
-                                st.session_state.chat_history.append([
-                                    "",
-                                    f"💡 Advice: {advice}"
-                                ])
+                                st.session_state.chat_history[-1][1] = f"💡 Advice: {advice}"
                                 st.session_state.question_index += 1
-                                if st.session_state.question_index >= len(st.session_state.questions):
+                                if st.session_state.question_index < len(st.session_state.questions):
+                                    st.session_state.chat_history.append([
+                                        f"Captain Feels 🤖: Q{st.session_state.question_index + 1}: {st.session_state.questions[st.session_state.question_index]}",
+                                        ""
+                                    ])
+                                else:
                                     st.session_state.chat_history.append([
                                         "",
                                         ("Captain Feels 🤖: You’ve completed the journey! You’re doing your best 🌈.\n\n"
@@ -354,9 +332,9 @@ def main():
                         st.session_state.stage = 'done'
                         st.rerun()
 
-    if st.session_state.get('stage') == 'done':
+    if st.session_state.stage == 'done':
         st.markdown("### 🌈 Journey Complete")
-        for user_msg, bot_msg in st.session_state.get('chat_history', []):
+        for user_msg, bot_msg in st.session_state.chat_history:
             if user_msg:
                 st.markdown(f"**{user_msg}**")
             if bot_msg:
