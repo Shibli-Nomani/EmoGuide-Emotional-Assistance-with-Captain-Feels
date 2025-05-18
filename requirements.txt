@@ -5,6 +5,7 @@ pandas
 plotly
 deepface
 tf-keras
+tensorflow==2.17.0
 transformers
 ctransformers
 gTTS
