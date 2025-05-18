@@ -318,7 +318,7 @@ def main():
                                          "🤖 Keep shining, take care 🌸, and thank you for sharing! 🌈")
                                     ])
                                     st.session_state.stage = 'done'
-                            st.experimental_rerun()
+                            st.rerun()
             else:
                 st.markdown("**Captain Feels 🤖:** You've answered all my questions! Type 'exit' to end or share more.")
                 user_input = st.text_input("Your response (or type 'exit' to end)...", key="final_input")
@@ -330,7 +330,7 @@ def main():
                              "🤖 Keep shining. Take care 🌸")
                         ])
                         st.session_state.stage = 'done'
-                        st.experimental_rerun()
+                        st.rerun()
 
     if st.session_state.stage == 'done':
         st.markdown("### 🌈 Journey Complete")
