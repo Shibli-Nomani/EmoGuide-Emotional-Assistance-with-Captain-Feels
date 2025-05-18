@@ -269,30 +269,73 @@ def main():
                 st.plotly_chart(plot_emotion_confidence(df), use_container_width=True)
                 st.markdown(f"### ✅ Captain Feels: I sense you're feeling **{st.session_state.emotion.upper()}**.")
 
-    # Chatbot interaction
-    if st.session_state.analysis_done:
-        st.markdown("##### 💬 Your Message")
-        user_input = st.text_input("Type your response or 'exit' to end...", key="user_input")
+ # Chatbot interaction
+if st.session_state.analysis_done:
+    st.markdown("##### 💬 Chat with Captain Feels")
+
+    # Debugging: Display current emotion
+    st.write(f"Detected Emotion: **{st.session_state.emotion.upper()}**")
+
+    # Check if questions are available
+    if not st.session_state.questions:
+        st.warning("No questions found for this emotion. Please try another image.")
+    else:
+        # Display the current question
+        if st.session_state.question_index < len(st.session_state.questions):
+            current_question = st.session_state.questions[st.session_state.question_index]
+            st.markdown(f"**Captain Feels 🤖: Q{st.session_state.question_index + 1}:** {current_question}")
+        else:
+            st.markdown("**Captain Feels 🤖:** You've answered all my questions! Feel free to share more or type 'exit' to end. 🌈")
+
+        # User input and send button
+        user_input = st.text_input("Your response (or type 'exit' to end)...", key="user_input")
         
         if st.button("Send"):
             if user_input:
-                with st.spinner("Generating response..."):
-                    st.session_state.chat_history, _, st.session_state.questions, st.session_state.question_index = respond(
-                        st.session_state.emotion,
-                        user_input,
-                        st.session_state.chat_history,
-                        st.session_state.questions,
-                        st.session_state.question_index
-                    )
+                with st.spinner("Generating advice..."):
+                    # Update chat history with user input
+                    st.session_state.chat_history.append([f"You: {user_input}", ""])
+                    
+                    # Generate advice based on emotion and user response
+                    try:
+                        advice = get_advice_from_json(st.session_state.emotion, user_input)
+                    except Exception as e:
+                        advice = f"Error generating advice: {e}. Please try again."
+                    
+                    # Add advice to chat history
+                    st.session_state.chat_history[-1][1] = f"💡 Captain Feels 🤖: {advice}"
+                    
+                    # Move to the next question or end
+                    if st.session_state.question_index < len(st.session_state.questions):
+                        st.session_state.question_index += 1
+                    else:
+                        st.session_state.chat_history.append([
+                            "",
+                            ("Captain Feels 🤖: You’ve completed the journey! You’re doing your best 🌈.\n\n"
+                             "If you enjoyed this, please like and share my LinkedIn post 🌟. "
+                             "🤖 Keep shining, take care 🌸, and thank you for sharing! 🌈")
+                        ])
 
-        # Display chat history
+                    # Handle 'exit' command
+                    if user_input.lower() in ["exit", "goodbye", "stop"]:
+                        st.session_state.chat_history.append([
+                            f"You: {user_input}",
+                            ("Captain Feels 🤖: Thank you for exploring. If you liked it, share & like my LinkedIn post 🌟\n\n"
+                             "🤖 Keep shining. Take care 🌸")
+                        ])
+                        st.session_state.question_index = len(st.session_state.questions)  # Stop further questions
+
+    # Display chat history
+    if st.session_state.chat_history:
         for user_msg, bot_msg in st.session_state.chat_history:
             if user_msg:
                 st.markdown(f"**You:** {user_msg}")
             if bot_msg:
-                st.markdown(f"**Captain Feels 🤖:** {bot_msg}")
+                st.markdown(f"**{bot_msg}")
+    else:
+        st.write("Start by answering Captain Feels' question above!")
 
-        st.markdown("##### 🚩 To achieve better results, please write well-structured prompts with explanations.")
+    st.markdown("##### 🚩 To achieve better results, please write well-structured prompts with explanations.")
 
 if __name__ == "__main__":
     main()
