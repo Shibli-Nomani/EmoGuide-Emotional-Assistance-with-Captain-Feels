@@ -12,7 +12,7 @@ import tempfile
 import os
 
 # --------------------------------------------
-# 🔧 Set Page Config (Must be the first Streamlit command)
+# 🔧 Set Page Config
 # --------------------------------------------
 st.set_page_config(page_title="EmoGuide: Emotion-Aware Conversations", page_icon="😎")
 
@@ -37,8 +37,12 @@ llm = load_llm()
 # --------------------------------------------
 # 📂 Load JSON Advice Data
 # --------------------------------------------
-with open("emontions_advice.json", "r") as f:
-    advice_data = json.load(f)
+try:
+    with open("emontions_advice.json", "r") as f:
+        advice_data = json.load(f)
+except FileNotFoundError:
+    st.error("emontions_advice.json not found. Please ensure the file exists.")
+    advice_data = []
 
 # --------------------------------------------
 # 📷 Image Processing & Analysis
@@ -47,7 +51,11 @@ def analyze_emotion_and_display(image):
     img_bgr = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
     temp_path = "temp_image.jpg"
     cv2.imwrite(temp_path, img_bgr)
-    emotions = DeepFace.analyze(img_path=temp_path, actions=['emotion'])
+    try:
+        emotions = DeepFace.analyze(img_path=temp_path, actions=['emotion'])
+    except Exception as e:
+        st.error(f"Emotion analysis failed: {e}")
+        return image
     padding = 50
     img_rgb_padded = cv2.copyMakeBorder(image, padding, padding, padding, padding, borderType=cv2.BORDER_CONSTANT, value=[255, 255, 255])
 
@@ -83,14 +91,20 @@ def analyze_full_info(image):
     temp_path = "temp_image.jpg"
     image_bgr = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
     cv2.imwrite(temp_path, image_bgr)
-    analysis = DeepFace.analyze(img_path=temp_path, actions=['emotion', 'age', 'gender'])
-    df = pd.json_normalize(analysis)
-    return df
+    try:
+        analysis = DeepFace.analyze(img_path=temp_path, actions=['emotion', 'age', 'gender'])
+        df = pd.json_normalize(analysis)
+        return df
+    except Exception as e:
+        st.error(f"Full analysis failed: {e}")
+        return pd.DataFrame()
 
 # --------------------------------------------
 # 📊 Visualization Functions
 # --------------------------------------------
 def create_hierarchical_tree(df):
+    if df.empty:
+        return None
     labels = [
         "Person Info",
         f"CURRENT EMOTION: {df['dominant_emotion'][0].upper()}",
@@ -104,16 +118,17 @@ def create_hierarchical_tree(df):
         labels=labels,
         parents=parents,
         marker=dict(colors=[0, 1, 2, 3, 4], colorscale='Sunset'),
-        textinfo="label+value",
+        textinfo="label",
         textfont=dict(size=16, family="Arial", color="black"),
         insidetextfont=dict(size=16, color="black"),
         textposition="middle center"
     ))
-
-    fig.update_layout(title="Emotion And Personal Info From Photo")
+    fig.update_layout(title="Emotion and Personal Info")
     return fig
 
 def plot_emotion_confidence(df):
+    if df.empty:
+        return None
     df_filter = df[['emotion.angry', 'emotion.disgust', 'emotion.fear', 'emotion.happy', 'emotion.sad', 'emotion.surprise', 'emotion.neutral']]
     df_filter.columns = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
 
@@ -140,10 +155,9 @@ def plot_emotion_confidence(df):
         ))
 
     fig.update_layout(
-        title="Emotion Confidence Levels with Emojis",
-        xaxis_title="Confidence Level",
+        title="Emotion Confidence Levels",
+        xaxis_title="Confidence Level (%)",
         yaxis_title="Emotion",
-        barmode='stack',
         height=400
     )
     fig.update_xaxes(range=[0, 110])
@@ -159,13 +173,13 @@ def get_default_questions(emotion):
 def get_advice_from_json(emotion, user_response):
     entries = [entry for entry in advice_data if entry["emotion"] == emotion]
     if not entries:
-        return "Sorry, I don’t have advice for that feeling yet."
+        return "I don’t have specific advice for this emotion yet, but I’m here to listen."
     entry = random.choice(entries)
     advice = random.choice(entry["advice"])
     prompt = (
         f"User feels {emotion} and said: '{user_response}'.\n"
         f"Advice: \"{advice}\"\n"
-        f"Rewrite this as a single empathetic sentence directly addressing the user's situation. "
+        f"Rewrite as a single empathetic sentence directly addressing the user's situation. "
         f"Respond only with the rephrased line in quotes, no explanation or questions."
     )
     try:
@@ -174,34 +188,6 @@ def get_advice_from_json(emotion, user_response):
     except Exception as e:
         return f"Error generating advice: {e}"
 
-def chat(emotion, user_input, history):
-    if user_input.lower() in ["exit", "goodbye", "stop"]:
-        final_msg = (
-            "Captain Feels🤖: Thank you for exploring. If you liked it, share & like my LinkedIn post 🌟\n\n"
-            "🤖 Keep shining. Take care 🌸"
-        )
-        return history + [[f"You: {user_input}", final_msg]], ""
-    advice = get_advice_from_json(emotion, user_input)
-    new_pair = [f"You: {user_input}", f"💡 Advice: {advice}"]
-    return history + [new_pair], ""
-
-def respond(emotion, user_text, chat_hist, questions, q_idx):
-    if user_text.lower() in ["exit", "goodbye", "stop"]:
-        updated_chat, _ = chat(emotion, user_text, chat_hist)
-        return updated_chat, "", questions, q_idx
-
-    updated_chat, _ = chat(emotion, user_text, chat_hist)
-
-    if q_idx < len(questions):
-        next_q = questions[q_idx]
-        updated_chat.append([f"Captain Feels 🤖: Q{q_idx + 1}: {next_q}", ""])
-        q_idx += 1
-    else:
-        updated_chat.append(["Captain Feels 🤖: You’ve finally completed the journey. You’re doing your best 🌈.\n\n"
-                             "If you enjoyed this experience, please like and share my LinkedIn post 🌟. 🤖 Keep shining, take care 🌸, and thank you for sharing! 🌈", ""])
-
-    return updated_chat, "", questions, q_idx
-
 # --------------------------------------------
 # 🔊 Audio Generation
 # --------------------------------------------
@@ -209,14 +195,16 @@ def respond(emotion, user_text, chat_hist, questions, q_idx):
 def generate_welcome_audio():
     try:
         welcome_text = (
-            "Hello! I’m Captain Feels — your virtual Emo Bot and Emotion Assistant. Please be patient as we go through the process. First, you’ll hear a short audio message. Then, upload or drag and drop your image for analysis. Finally, I’ll guide you with personalized advice and a few interactive questions."
+            "Hello! I’m Captain Feels, your virtual Emotion Assistant. "
+            "First, listen to this message. Then, upload an image for emotion analysis. "
+            "After that, I’ll ask you questions one by one, offer advice, and guide you through the journey."
         )
-        tts = gTTS(text=welcome_text, lang='en', tld='co.uk')  # British English for neutral/male-leaning voice
+        tts = gTTS(text=welcome_text, lang='en', tld='co.uk')
         _, audio_path = tempfile.mkstemp(suffix=".mp3")
         tts.save(audio_path)
         return audio_path
     except Exception as e:
-        st.warning(f"Failed to generate welcome audio: {e}. Continuing without audio.")
+        st.warning(f"Failed to generate audio: {e}. Continuing without audio.")
         return None
 
 # --------------------------------------------
@@ -224,118 +212,134 @@ def generate_welcome_audio():
 # --------------------------------------------
 def main():
     st.title("😎 EmoGuide: Emotion-Aware Conversations with Captain Feels")
-    st.markdown("## 🚩 Play the Audio and Start the Journey with Patience")
+    st.markdown("### 🚩 Step 1: Listen to the Welcome Audio")
 
     # Play welcome audio
     welcome_audio_path = generate_welcome_audio()
     if welcome_audio_path:
         st.audio(welcome_audio_path, format="audio/mp3", start_time=0)
     else:
-        st.info("Audio generation skipped due to TTS initialization failure.")
+        st.info("Audio generation skipped due to TTS failure.")
 
     # Initialize session state
-    if 'chat_history' not in st.session_state:
+    if 'stage' not in st.session_state:
+        st.session_state.stage = 'audio'
         st.session_state.chat_history = []
         st.session_state.emotion = "neutral"
         st.session_state.questions = []
         st.session_state.question_index = 0
         st.session_state.analysis_done = False
+        st.session_state.user_input = ""
 
-    # Image upload
-    st.markdown("### 📸 Upload or Capture Image")
-    image_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-    
-    if image_file is not None:
-        image = cv2.imdecode(np.frombuffer(image_file.read(), np.uint8), cv2.IMREAD_COLOR)
-        image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # Image upload (only after audio)
+    if st.session_state.stage == 'audio':
+        if st.button("Proceed to Image Upload"):
+            st.session_state.stage = 'image'
 
-        if st.button("Analyze Emotion 🧠"):
-            with st.spinner("Analyzing image..."):
-                # Process image
-                result_img = analyze_emotion_and_display(image_rgb)
-                df = analyze_full_info(image_rgb)
-                st.session_state.emotion = df['dominant_emotion'][0]
-                st.session_state.questions = get_default_questions(st.session_state.emotion)
-                st.session_state.question_index = 1
-                st.session_state.chat_history = [[f"", f"Captain Feels 🤖: Q1: {st.session_state.questions[0]}"]]
-                st.session_state.analysis_done = True
-
-                # Display results
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.image(result_img, caption="Emotion Detection Output", use_column_width=True)
-                with col2:
-                    st.plotly_chart(create_hierarchical_tree(df), use_container_width=True)
-                st.plotly_chart(plot_emotion_confidence(df), use_container_width=True)
-                st.markdown(f"### ✅ Captain Feels: I sense you're feeling **{st.session_state.emotion.upper()}**.")
-
- # Chatbot interaction
-if st.session_state.analysis_done:
-    st.markdown("##### 💬 Chat with Captain Feels")
-
-    # Debugging: Display current emotion
-    st.write(f"Detected Emotion: **{st.session_state.emotion.upper()}**")
-
-    # Check if questions are available
-    if not st.session_state.questions:
-        st.warning("No questions found for this emotion. Please try another image.")
-    else:
-        # Display the current question
-        if st.session_state.question_index < len(st.session_state.questions):
-            current_question = st.session_state.questions[st.session_state.question_index]
-            st.markdown(f"**Captain Feels 🤖: Q{st.session_state.question_index + 1}:** {current_question}")
-        else:
-            st.markdown("**Captain Feels 🤖:** You've answered all my questions! Feel free to share more or type 'exit' to end. 🌈")
-
-        # User input and send button
-        user_input = st.text_input("Your response (or type 'exit' to end)...", key="user_input")
+    if st.session_state.stage == 'image':
+        st.markdown("### 📸 Step 2: Upload Image for Emotion Analysis")
+        image_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
         
-        if st.button("Send"):
-            if user_input:
-                with st.spinner("Generating advice..."):
-                    # Update chat history with user input
-                    st.session_state.chat_history.append([f"You: {user_input}", ""])
-                    
-                    # Generate advice based on emotion and user response
-                    try:
-                        advice = get_advice_from_json(st.session_state.emotion, user_input)
-                    except Exception as e:
-                        advice = f"Error generating advice: {e}. Please try again."
-                    
-                    # Add advice to chat history
-                    st.session_state.chat_history[-1][1] = f"💡 Captain Feels 🤖: {advice}"
-                    
-                    # Move to the next question or end
-                    if st.session_state.question_index < len(st.session_state.questions):
-                        st.session_state.question_index += 1
-                    else:
-                        st.session_state.chat_history.append([
-                            "",
-                            ("Captain Feels 🤖: You’ve completed the journey! You’re doing your best 🌈.\n\n"
-                             "If you enjoyed this, please like and share my LinkedIn post 🌟. "
-                             "🤖 Keep shining, take care 🌸, and thank you for sharing! 🌈")
-                        ])
+        if image_file is not None:
+            image = cv2.imdecode(np.frombuffer(image_file.read(), np.uint8), cv2.IMREAD_COLOR)
+            image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-                    # Handle 'exit' command
+            if st.button("Analyze Emotion 🧠"):
+                with st.spinner("Analyzing image..."):
+                    result_img = analyze_emotion_and_display(image_rgb)
+                    df = analyze_full_info(image_rgb)
+                    if not df.empty:
+                        st.session_state.emotion = df['dominant_emotion'][0]
+                        st.session_state.questions = get_default_questions(st.session_state.emotion)
+                        st.session_state.stage = 'chat'
+                        st.session_state.analysis_done = True
+                        st.session_state.chat_history = [[f"Captain Feels 🤖: Q1: {st.session_state.questions[0]}", ""]]
+
+                        # Display results
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            st.image(result_img, caption="Emotion Detection Output", use_column_width=True)
+                        with col2:
+                            fig_tree = create_hierarchical_tree(df)
+                            if fig_tree:
+                                st.plotly_chart(fig_tree, use_container_width=True)
+                        fig_conf = plot_emotion_confidence(df)
+                        if fig_conf:
+                            st.plotly_chart(fig_conf, use_container_width=True)
+                        st.markdown(f"### ✅ Captain Feels: I sense you're feeling **{st.session_state.emotion.upper()}**.")
+                    else:
+                        st.error("Analysis failed. Please try another image.")
+
+    # Chatbot interaction
+    if st.session_state.stage == 'chat' and st.session_state.analysis_done:
+        st.markdown("### 💬 Step 3: Chat with Captain Feels")
+        st.write(f"Detected Emotion: **{st.session_state.emotion.upper()}**")
+
+        if not st.session_state.questions:
+            st.warning("No questions found for this emotion. Please try another image.")
+        else:
+            # Display chat history
+            for user_msg, bot_msg in st.session_state.chat_history:
+                if user_msg:
+                    st.markdown(f"**{user_msg}**")
+                if bot_msg:
+                    st.markdown(f"**{bot_msg}**")
+
+            # Show current question or final message
+            if st.session_state.question_index < len(st.session_state.questions):
+                st.markdown(f"**Captain Feels 🤖: Q{st.session_state.question_index + 1}:** {st.session_state.questions[st.session_state.question_index]}")
+                user_input = st.text_input("Your response (or type 'exit' to end)...", key=f"user_input_{st.session_state.question_index}")
+                
+                if st.button("Send Response"):
+                    if user_input:
+                        with st.spinner("Generating advice..."):
+                            st.session_state.chat_history.append([f"You: {user_input}", ""])
+                            if user_input.lower() in ["exit", "goodbye", "stop"]:
+                                st.session_state.chat_history.append([
+                                    "",
+                                    ("Captain Feels 🤖: Thank you for exploring! If you liked it, share & like my LinkedIn post 🌟\n\n"
+                                     "🤖 Keep shining. Take care 🌸")
+                                ])
+                                st.session_state.stage = 'done'
+                            else:
+                                advice = get_advice_from_json(st.session_state.emotion, user_input)
+                                st.session_state.chat_history[-1][1] = f"💡 Captain Feels 🤖: {advice}"
+                                st.session_state.question_index += 1
+                                if st.session_state.question_index < len(st.session_state.questions):
+                                    st.session_state.chat_history.append([
+                                        f"Captain Feels 🤖: Q{st.session_state.question_index + 1}: {st.session_state.questions[st.session_state.question_index]}",
+                                        ""
+                                    ])
+                                else:
+                                    st.session_state.chat_history.append([
+                                        "",
+                                        ("Captain Feels 🤖: You’ve completed the journey! You’re doing your best 🌈.\n\n"
+                                         "If you enjoyed this, please like and share my LinkedIn post 🌟. "
+                                         "🤖 Keep shining, take care 🌸, and thank you for sharing! 🌈")
+                                    ])
+                                    st.session_state.stage = 'done'
+                            st.experimental_rerun()
+            else:
+                st.markdown("**Captain Feels 🤖:** You've answered all my questions! Type 'exit' to end or share more.")
+                user_input = st.text_input("Your response (or type 'exit' to end)...", key="final_input")
+                if st.button("Send Final Response"):
                     if user_input.lower() in ["exit", "goodbye", "stop"]:
                         st.session_state.chat_history.append([
                             f"You: {user_input}",
-                            ("Captain Feels 🤖: Thank you for exploring. If you liked it, share & like my LinkedIn post 🌟\n\n"
+                            ("Captain Feels 🤖: Thank you for exploring! If you liked it, share & like my LinkedIn post 🌟\n\n"
                              "🤖 Keep shining. Take care 🌸")
                         ])
-                        st.session_state.question_index = len(st.session_state.questions)  # Stop further questions
+                        st.session_state.stage = 'done'
+                        st.experimental_rerun()
 
-    # Display chat history
-    if st.session_state.chat_history:
+    if st.session_state.stage == 'done':
+        st.markdown("### 🌈 Journey Complete")
         for user_msg, bot_msg in st.session_state.chat_history:
             if user_msg:
-                st.markdown(f"**You:** {user_msg}")
+                st.markdown(f"**{user_msg}**")
             if bot_msg:
-                st.markdown(f"**{bot_msg}")
-    else:
-        st.write("Start by answering Captain Feels' question above!")
-
-    st.markdown("##### 🚩 To achieve better results, please write well-structured prompts with explanations.")
+                st.markdown(f"**{bot_msg}**")
+        st.stop()
 
 if __name__ == "__main__":
     main()
