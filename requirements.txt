@@ -6,6 +6,7 @@ plotly
 deepface
 tensorflow
 keras
+tf-keras
 transformers
 ctransformers
 gTTS
