@@ -271,66 +271,72 @@ def main():
                         st.error("Analysis failed. Please try another image.")
 
     # Chatbot interaction
-    if st.session_state.stage == 'chat' and st.session_state.analysis_done:
-        st.markdown("### 💬 Step 3: Chat with Captain Feels")
-        st.write(f"Detected Emotion: **{st.session_state.emotion.upper()}**")
+    # Chatbot interaction
+if st.session_state.stage == 'chat' and st.session_state.analysis_done:
+    st.markdown("### 💬 Step 3: Chat with Captain Feels")
+    st.write(f"Detected Emotion: **{st.session_state.emotion.upper()}**")
 
-        if not st.session_state.questions:
-            st.warning("No questions found for this emotion. Please try another image.")
-        else:
-            # Display chat history
-            for user_msg, bot_msg in st.session_state.chat_history:
-                if user_msg:
-                    st.markdown(f"**{user_msg}**")
-                if bot_msg:
-                    st.markdown(f"**{bot_msg}**")
+    if not st.session_state.questions:
+        st.warning("No questions found for this emotion. Please try another image.")
+    else:
+        # Display chat history
+        for user_msg, bot_msg in st.session_state.chat_history:
+            if user_msg:
+                st.markdown(f"**{user_msg}**")
+            if bot_msg:
+                st.markdown(f"**{bot_msg}**")
 
-            # Show current question or final message
-            if st.session_state.question_index < len(st.session_state.questions):
-                st.markdown(f"**Captain Feels 🤖: Q{st.session_state.question_index + 1}:** {st.session_state.questions[st.session_state.question_index]}")
-                user_input = st.text_input("Your response (or type 'exit' to end)...", key=f"user_input_{st.session_state.question_index}")
-                
-                if st.button("Send Response"):
-                    if user_input:
-                        with st.spinner("Generating advice..."):
-                            st.session_state.chat_history.append([f"You: {user_input}", ""])
-                            if user_input.lower() in ["exit", "goodbye", "stop"]:
+        # Show current question or final message
+        if st.session_state.question_index < len(st.session_state.questions):
+            # Ensure the current question is in chat_history
+            if not st.session_state.chat_history or st.session_state.chat_history[-1][0] != f"Captain Feels 🤖: Q{st.session_state.question_index + 1}: {st.session_state.questions[st.session_state.question_index]}":
+                st.session_state.chat_history.append([
+                    f"Captain Feels 🤖: Q{st.session_state.question_index + 1}: {st.session_state.questions[st.session_state.question_index]}",
+                    ""
+                ])
+                st.rerun()
+
+            user_input = st.text_input("Your response (or type 'exit' to end)...", key=f"user_input_{st.session_state.question_index}")
+            
+            if st.button("Send Response"):
+                if user_input:
+                    with st.spinner("Generating advice..."):
+                        st.session_state.chat_history[-1][1] = f"You: {user_input}"
+                        if user_input.lower() in ["exit", "goodbye", "stop"]:
+                            st.session_state.chat_history.append([
+                                "",
+                                ("Captain Feels 🤖: Thank you for exploring! If you liked it, share & like my LinkedIn post 🌟\n\n"
+                                 "🤖 Keep shining. Take care 🌸")
+                            ])
+                            st.session_state.stage = 'done'
+                        else:
+                            advice = get_advice_from_json(st.session_state.emotion, user_input)
+                            st.session_state.chat_history.append([
+                                "",
+                                f"💡 Advice: {advice}"
+                            ])
+                            st.session_state.question_index += 1
+                            if st.session_state.question_index >= len(st.session_state.questions):
                                 st.session_state.chat_history.append([
                                     "",
-                                    ("Captain Feels 🤖: Thank you for exploring! If you liked it, share & like my LinkedIn post 🌟\n\n"
-                                     "🤖 Keep shining. Take care 🌸")
+                                    ("Captain Feels 🤖: You’ve completed the journey! You’re doing your best 🌈.\n\n"
+                                     "If you enjoyed this, please like and share my LinkedIn post 🌟. "
+                                     "🤖 Keep shining, take care 🌸, and thank you for sharing! 🌈")
                                 ])
                                 st.session_state.stage = 'done'
-                            else:
-                                advice = get_advice_from_json(st.session_state.emotion, user_input)
-                                st.session_state.chat_history[-1][1] = f"💡 Advice: {advice}"
-                                st.session_state.question_index += 1
-                                if st.session_state.question_index < len(st.session_state.questions):
-                                    st.session_state.chat_history.append([
-                                        f"Captain Feels 🤖: Q{st.session_state.question_index + 1}: {st.session_state.questions[st.session_state.question_index]}",
-                                        ""
-                                    ])
-                                else:
-                                    st.session_state.chat_history.append([
-                                        "",
-                                        ("Captain Feels 🤖: You’ve completed the journey! You’re doing your best 🌈.\n\n"
-                                         "If you enjoyed this, please like and share my LinkedIn post 🌟. "
-                                         "🤖 Keep shining, take care 🌸, and thank you for sharing! 🌈")
-                                    ])
-                                    st.session_state.stage = 'done'
-                            st.rerun()
-            else:
-                st.markdown("**Captain Feels 🤖:** You've answered all my questions! Type 'exit' to end or share more.")
-                user_input = st.text_input("Your response (or type 'exit' to end)...", key="final_input")
-                if st.button("Send Final Response"):
-                    if user_input.lower() in ["exit", "goodbye", "stop"]:
-                        st.session_state.chat_history.append([
-                            f"You: {user_input}",
-                            ("Captain Feels 🤖: Thank you for exploring! If you liked it, share & like my LinkedIn post 🌟\n\n"
-                             "🤖 Keep shining. Take care 🌸")
-                        ])
-                        st.session_state.stage = 'done'
                         st.rerun()
+        else:
+            st.markdown("**Captain Feels 🤖:** You've answered all my questions! Type 'exit' to end or share more.")
+            user_input = st.text_input("Your response (or type 'exit' to end)...", key="final_input")
+            if st.button("Send Final Response"):
+                if user_input.lower() in ["exit", "goodbye", "stop"]:
+                    st.session_state.chat_history.append([
+                        f"You: {user_input}",
+                        ("Captain Feels 🤖: Thank you for exploring! If you liked it, share & like my LinkedIn post 🌟\n\n"
+                         "🤖 Keep shining. Take care 🌸")
+                    ])
+                    st.session_state.stage = 'done'
+                    st.rerun()
 
     if st.session_state.stage == 'done':
         st.markdown("### 🌈 Journey Complete")
