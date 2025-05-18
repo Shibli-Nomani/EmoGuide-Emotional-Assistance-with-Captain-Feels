@@ -12,7 +12,7 @@ import tempfile
 import os
 
 # --------------------------------------------
-# 🔧 Set Page Config
+# 🔧 Set Page Config (Must be the first Streamlit command)
 # --------------------------------------------
 st.set_page_config(page_title="EmoGuide: Emotion-Aware Conversations", page_icon="😎")
 
@@ -57,7 +57,7 @@ def analyze_emotion_and_display(image):
         st.error(f"Emotion analysis failed: {e}")
         return image
     padding = 50
-    img_rgb_padded = cv2.copyMakeBorder(image, padding, padding, padding, padding, borderType=cv2.BORDER_CONSTANT, value=[255, 255, 255])
+    img_rgb_padded = cv2.copyMakeBorder(image, padding, padding, padding, padding, cv2.BORDER_CONSTANT, value=[255, 255, 255])
 
     for face in emotions:
         x, y, w, h = face['region']['x'], face['region']['y'], face['region']['w'], face['region']['h']
